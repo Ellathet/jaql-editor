@@ -26,6 +26,7 @@ export interface Jaql {
   title: string;
   collapsed?: boolean;
   isDashboardFilter?: boolean;
+  isPrimary?: boolean;
   columnTitle?: string;
   tableTitle?: string;
   filter: Filter;

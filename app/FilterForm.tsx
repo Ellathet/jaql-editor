@@ -3,6 +3,7 @@
 import { JaqlFilterState } from '@/app/types';
 import { updateFilterValue, getFilterTitle } from '@/app/utils';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -102,8 +103,13 @@ export function FilterForm({ filter, onChange }: FilterFormProps) {
     return (
       <Card className="mb-6">
         <CardHeader>
-          <div className="flex items-center justify-between">
-            <CardTitle className="text-lg">{title}</CardTitle>
+          <div className="flex items-center justify-between flex-wrap gap-2">
+            <div className="flex items-center gap-2 flex-wrap">
+              <CardTitle className="text-lg">{title}</CardTitle>
+              {filter.jaql?.isPrimary && (
+                <Badge variant="secondary">Primary</Badge>
+              )}
+            </div>
             {datatype && (
               <span className="inline-block px-3 py-1 text-xs font-semibold rounded-full text-white"
                 style={{ backgroundColor: '#1F5FB0' }}>
@@ -188,6 +194,23 @@ export function FilterForm({ filter, onChange }: FilterFormProps) {
                 className="text-sm font-medium text-gray-700 cursor-pointer"
               >
                 Select All
+              </label>
+            </div>
+
+            {/* Primary checkbox */}
+            <div className="flex items-center space-x-2">
+              <Checkbox
+                id={`primary-${filter.instanceid}`}
+                checked={filter.jaql?.isPrimary || false}
+                onCheckedChange={(checked) =>
+                  handleFilterChange('jaql.isPrimary', Boolean(checked))
+                }
+              />
+              <label
+                htmlFor={`primary-${filter.instanceid}`}
+                className="text-sm font-medium text-gray-700 cursor-pointer"
+              >
+                Primary
               </label>
             </div>
 

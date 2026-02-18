@@ -100,15 +100,7 @@ Once parsed, filters appear in the "Edit Filters" section where you can:
   - **Explicit Filter** - When enabled, define specific member values (auto-disables Select All)
   - **Multi-Selection** - Allow/disallow multiple members (disabling limits to 1 member)
   - **Select All** - Include all members (auto-disables Explicit Filter)
-  - **Use Condition Filters** - Switch from member-based to condition-based filtering with operators
-
-- **Condition Filters** (NEW) - When enabled on an Explicit Filter:
-  - Choose from 10 condition operators:
-    - **Text Operators**: Contains, Does not contain, Starts with, Does not start with, Ends with, Does not end with
-    - **Equality Operators**: Equals, Does not equal
-    - **Presence Operators**: Is empty, Is not empty
-  - **Logical Connectors** - Combine multiple conditions with AND/OR logic
-  - **Smart Inputs** - Automatically uses appropriate input type based on column datatype
+  - **Disabled** - Disable the entire filter
 
 - **Add/Remove Members** - Input values based on column datatype
 - **View Filter Metadata** - See column, table, and datatype information
@@ -221,37 +213,9 @@ jaql-render/
     - **Workaround**: Ensure complete JAQL structure with datasource metadata
     - **Status**: Gracefully handled with fallback to text input
 
-11. **Condition Filters & Members**
-    - **Note**: Condition filters and member-based filters are mutually exclusive within the same explicit filter
-    - **Behavior**: Enabling "Use Condition Filters" clears members list; disabling it removes conditions
-    - **Status**: Intentional design for clarity and data consistency
-
 ---
 
-## Advanced Features
-
-### Condition Filtering
-
-When "Explicit Filter" is enabled, you can toggle "Use Condition Filters" to switch from member-based to condition-based filtering:
-
-**Available Operators:**
-- **Text Matching**: Contains, Does not contain, Starts with, Does not start with, Ends with, Does not end with
-- **Equality**: Equals, Does not equal
-- **Presence**: Is empty, Is not empty
-
-**Combining Conditions:**
-- Single condition: Applied directly to the filter
-- Multiple conditions: Choose AND (all must match) or OR (any can match)
-
-**Example Usage:**
-1. Enable "Explicit Filter"
-2. Check "Use Condition Filters"
-3. Add condition: `operator: "contains", value: "test"`
-4. For multiple conditions, click "+ Add Condition"
-5. Select AND/OR logic to combine them
-6. Export to generate updated JAQL with conditions
-
-
+## Contributing & Support
 
 ### Reporting Issues
 
