@@ -4,11 +4,12 @@ import { useState, useRef } from 'react';
 import { FileJson } from 'lucide-react';
 import { Toaster, toast } from 'sonner';
 import { parseJaqlJson, validateJaqlStructure, exportToJson } from '@/app/utils';
-import { FilterForm } from '@/app/FilterForm';
+import { SdkFilterTile } from '@/app/SdkFilterTile';
 import { FilterItem, JaqlFilterState } from '@/app/types';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Checkbox } from '@/components/ui/checkbox';
 
 export default function Home() {
   const [jsonInput, setJsonInput] = useState('');
@@ -16,6 +17,7 @@ export default function Home() {
   const [error, setError] = useState('');
   const [jsonOutput, setJsonOutput] = useState('');
   const [showOutput, setShowOutput] = useState(false);
+  const [useSdkTile, setUseSdkTile] = useState(false);
   const exportTextareaRef = useRef<HTMLTextAreaElement>(null);
 
   const handleParse = () => {
@@ -166,14 +168,29 @@ export default function Home() {
         {filters.length > 0 && (
           <div className="mt-8">
             <div className="bg-white rounded-lg shadow-lg p-6">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">2. Edit Filters</h2>
+              <div className="flex items-center justify-between flex-wrap gap-4 mb-6">
+                <h2 className="text-2xl font-bold text-gray-900">2. Edit Filters</h2>
+                <label className="flex items-center gap-2 cursor-pointer text-sm text-gray-600">
+                  <Checkbox
+                    checked={useSdkTile}
+                    onCheckedChange={(checked) => setUseSdkTile(Boolean(checked))}
+                  />
+                  Use CSDK filter tile (select from list)
+                </label>
+              </div>
+              <p className="text-sm text-gray-500 mb-4">
+                {useSdkTile
+                  ? 'SDK style: select members from the list (no server fetch).'
+                  : 'Editor: type filter values directly (text, numbers, dates); no data fetch.'}
+              </p>
 
               <div className="space-y-6">
                 {filters.map((filter, index) => (
-                  <div key={index}>
-                    <FilterForm
+                  <div key={filter.instanceid ?? index}>
+                    <SdkFilterTile
                       filter={filter}
                       onChange={(updated) => handleFilterChange(index, updated)}
+                      useSdkTile={useSdkTile}
                     />
                   </div>
                 ))}
